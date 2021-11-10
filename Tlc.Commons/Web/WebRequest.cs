@@ -1,16 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Tlc.Commons.Em;
-using Tlc.Commons.Extensions;
+using Newtonsoft.Json;
+using Tlc.Em;
+using Tlc.Extensions;
 
-namespace Tlc.Commons.Web
+namespace Tlc.Web
 {
     public static class WebRequest
     {
@@ -114,7 +112,7 @@ namespace Tlc.Commons.Web
             Action<HttpWebRequest> configureRequest = null,
             string bearerToken = null)
         {
-            var serverResponse = default(HttpWebResponse);
+            HttpWebResponse serverResponse;
             try
             {
                 serverResponse = await PostAsync(url, content, sendType, returnType, configureRequest, bearerToken);

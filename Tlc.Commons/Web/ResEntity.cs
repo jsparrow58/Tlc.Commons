@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Tlc.Commons.Extensions;
+﻿using System.Net;
+using Tlc.Extensions;
 
-namespace Tlc.Commons.Web
+namespace Tlc.Web
 {
     public class ResEntity
     {
