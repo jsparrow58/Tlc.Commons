@@ -8,7 +8,7 @@ namespace Tlc.Framework.Construction
     public class FrameworkConstruction
     {
         #region Private fields
-
+        
         protected IServiceCollection services;
 
         #endregion

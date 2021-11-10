@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Tlc.ExceptionHandling;
 using Tlc.Framework.Construction;
 
 namespace Tlc.Framework.Extensions
@@ -66,5 +68,41 @@ namespace Tlc.Framework.Extensions
         }
 
         #endregion
+
+        public static FrameworkConstruction AddDefaultService(this FrameworkConstruction construction)
+        {
+            construction.AddDefaultExceptionHandler()
+                .AddDefaultLogger();
+
+            return construction;
+        }
+
+        public static FrameworkConstruction AddDefaultLogger(this FrameworkConstruction construction)
+        {
+            construction.Services.AddLogging(options =>
+            {
+                // 设置debug为默认日志等级
+                options.SetMinimumLevel(LogLevel.Debug);
+                // 从配置中读取日志配置
+                options.AddConfiguration(construction.Configuration.GetSection("Logging"));
+                // add console logger
+                options.AddConsole();
+                // add debug logger
+                options.AddDebug();
+            });
+            construction.Services.AddTransient(provider => provider.GetService<ILoggerFactory>().CreateLogger("tlc"));
+            return construction;
+        }
+
+        /// <summary>
+        /// 注入默认的异常处理程序到框架当中
+        /// </summary>
+        /// <param name="construction">框架构建器</param>
+        /// <returns></returns>
+        public static FrameworkConstruction AddDefaultExceptionHandler(this FrameworkConstruction construction)
+        {
+            construction.Services.AddSingleton<IExceptionHandler>(new DefaultExceptionHandler());
+            return construction;
+        }
     }
 }

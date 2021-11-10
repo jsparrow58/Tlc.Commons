@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Net;
-using Tlc.Web;
 
-namespace Tlc.Extensions
+namespace Tlc.Web.Extensions
 {
     public static class HttpWebResponseExtensions
     {
