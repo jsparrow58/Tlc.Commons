@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Tlc.Framework.Construction;
+using Tlc.Logging.Extensions;
 using static Tlc.Framework.FrameworkDI;
 
 namespace Tlc.Framework
@@ -22,10 +23,16 @@ namespace Tlc.Framework
         {
             // Build the service provider
             construction.Build();
+            
+            if(logStarted)
+                Logger.LogCriticalSource($"SJ Framework started in {FrameworkEnvironment.Configuration}...");
+        }
 
-            // TODO: implement Logger
-            /*if(logStarted)
-                Logger.LogCritical;*/
+        public static void Build(IServiceProvider provider, bool logStarted = true)
+        {
+            Construction.Build(provider);
+            if(logStarted)
+                Logger.LogCriticalSource($"SJ Framework started in {FrameworkEnvironment.Configuration}...");
         }
 
         public static FrameworkConstruction Construct<T>()

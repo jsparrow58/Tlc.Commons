@@ -14,8 +14,7 @@ namespace Tlc.Framework
 
         public static ILoggerFactory LoggerFactory => Framework.Provider?.GetService<ILoggerFactory>();
 
-        public static IFrameworkEnvironment FrameworkEnvironment =>
-            Framework.Provider?.GetService<IFrameworkEnvironment>();
+        public static IFrameworkEnvironment FrameworkEnvironment => Framework.Provider?.GetService<IFrameworkEnvironment>();
 
         /// <summary>
         /// 获取异常处理器
