@@ -1,19 +1,17 @@
-﻿namespace Tlc.Framework.Construction
+﻿namespace SJ.Framework.Construction
 {
     /// <summary>
-    /// Creates a default framework construction containing all 
-    /// the default configuration and services, when used inside
-    /// a project that has it's own service provider such as an
-    /// ASP.Net Core website
+    ///   Creates a default framework construction containing all
+    ///   the default configuration and services, when used inside
+    ///   a project that has it's own service provider such as an
+    ///   ASP.Net Core website
     /// </summary>
     /// <example>
-    /// 
-    /// <para>
+    ///   <para>
     ///     This is an example setup code for building a SJ Framework Construction
     ///     if you include the SJ.Framework.AspNet NuGet package
-    /// </para>
-    /// 
-    /// <code>
+    ///   </para>
+    ///   <code>
     /// 
     ///     //  Program.cs (in BuildWebHost)
     ///     // ------------------------------
@@ -36,7 +34,7 @@
     ///             })
     ///             .UseStartup&lt;Startup&gt;()
     ///             .Build();
-    ///
+    /// 
     ///     //  Startup.cs (in Configure)
     ///     // ---------------------------
     ///     
@@ -44,16 +42,14 @@
     ///         app.UseSjFramework();
     /// 
     /// </code>
-    /// 
     /// </example>
-    public class HostedFrameworkConstruction: FrameworkConstruction
+    public class HostedFrameworkConstruction : FrameworkConstruction
+  {
+      /// <summary>
+      ///   Default constructor
+      /// </summary>
+      public HostedFrameworkConstruction() : base(false)
     {
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public HostedFrameworkConstruction() : base(createServiceCollection: false)
-        {
-            
-        }
     }
+  }
 }

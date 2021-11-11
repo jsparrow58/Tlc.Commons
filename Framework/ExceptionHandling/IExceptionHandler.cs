@@ -1,9 +1,9 @@
 using System;
 
-namespace Tlc.ExceptionHandling
+namespace SJ.ExceptionHandling
 {
   /// <summary>
-  /// 异常处理
+  ///   异常处理
   /// </summary>
   public interface IExceptionHandler
   {

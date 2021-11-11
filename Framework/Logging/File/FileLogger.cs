@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-namespace Tlc.Logging.File
+namespace SJ.Logging.File
 {
   public class FileLogger : ILogger
   {
@@ -14,38 +14,14 @@ namespace Tlc.Logging.File
     {
       this.categoryName = categoryName;
       this.filePath = Path.GetFullPath(filePath);
-      this.directory = Path.GetDirectoryName(this.filePath);
+      directory = Path.GetDirectoryName(this.filePath);
       this.configuration = configuration;
     }
 
     #endregion
-    
-    #region static properties
 
-    /// <summary>
-    /// 日志文件并行锁
-    /// </summary>
-    protected static ConcurrentDictionary<string, object> fileLocks = new ConcurrentDictionary<string, object>();
-    /// <summary>
-    /// 文件并行锁的锁
-    /// </summary>
-    protected static object fileLockLock = new object();
-
-    #endregion
-
-    #region Protected properties
-
-    protected string categoryName;
-
-    protected string filePath;
-
-    protected string directory;
-    
-    protected FileLoggerConfiguration configuration;
-
-    #endregion
-
-    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+      Func<TState, Exception, string> formatter)
     {
       if (!IsEnabled(logLevel)) return;
 
@@ -56,9 +32,9 @@ namespace Tlc.Logging.File
       // Get the formatted message string
       var message = formatter(state, exception);
       var output = $"{logLeveString}{logTimeString}{message}{System.Environment.NewLine}";
-      
+
       var normalizedPath = filePath.ToUpper();
-      
+
       var fileLock = default(object);
 
       lock (fileLockLock)
@@ -70,7 +46,8 @@ namespace Tlc.Logging.File
       {
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
-        using (var fileStream = new StreamWriter(System.IO.File.Open(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite)))
+        using (var fileStream = new StreamWriter(System.IO.File.Open(filePath, FileMode.OpenOrCreate,
+          FileAccess.ReadWrite, FileShare.ReadWrite)))
         {
           // 到文件的末尾
           fileStream.BaseStream.Seek(0, SeekOrigin.End);
@@ -90,5 +67,32 @@ namespace Tlc.Logging.File
     {
       return null;
     }
+
+    #region static properties
+
+    /// <summary>
+    ///   日志文件并行锁
+    /// </summary>
+    protected static ConcurrentDictionary<string, object> fileLocks = new ConcurrentDictionary<string, object>();
+
+    /// <summary>
+    ///   文件并行锁的锁
+    /// </summary>
+    protected static object fileLockLock = new object();
+
+    #endregion
+
+    #region Protected properties
+
+    protected string categoryName;
+
+    protected string filePath;
+
+    protected string directory;
+
+    protected FileLoggerConfiguration configuration;
+
+    #endregion
+
   }
 }

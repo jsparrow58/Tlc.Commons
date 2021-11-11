@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
-using Tlc.Extensions;
+using SJ.Extensions;
 
-namespace Tlc.Logging.Extensions
+namespace SJ.Logging.Extensions
 {
   /// <summary>
   ///   Extensions for <see cref="ILogger" /> loggers

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace Tlc.Logging.File
+namespace SJ.Logging.File
 {
   public class FileLoggerConfiguration
   {

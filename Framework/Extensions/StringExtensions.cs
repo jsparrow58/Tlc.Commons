@@ -1,8 +1,15 @@
-﻿namespace Tlc.Extensions
+﻿namespace SJ.Extensions
 {
-    public static class StringExtensions
+  public static class StringExtensions
+  {
+    public static bool IsNullOrEmpty(this string content)
     {
-        public static bool IsNullOrEmpty(this string content) => string.IsNullOrEmpty(content);
-        public static bool IsNullOrWhiteSpace(this string content) => string.IsNullOrWhiteSpace(content);
+      return string.IsNullOrEmpty(content);
     }
+
+    public static bool IsNullOrWhiteSpace(this string content)
+    {
+      return string.IsNullOrWhiteSpace(content);
+    }
+  }
 }

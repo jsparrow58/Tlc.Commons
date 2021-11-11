@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Tlc.Framework.Construction;
+using SJ.Framework.Construction;
 
-namespace Tlc.Logging.File
+namespace SJ.Logging.File
 {
   public static class FileLoggerExtensions
   {
@@ -19,7 +19,7 @@ namespace Tlc.Logging.File
     {
       construction.Services.AddLogging(options =>
       {
-        options.AddFile(path, new FileLoggerConfiguration() { LogAtTop = logTop });
+        options.AddFile(path, new FileLoggerConfiguration { LogAtTop = logTop });
       });
 
       return construction;

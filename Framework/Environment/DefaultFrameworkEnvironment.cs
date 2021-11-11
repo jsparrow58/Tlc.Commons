@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Tlc.Environment
+namespace SJ.Environment
 {
-    public class DefaultFrameworkEnvironment : IFrameworkEnvironment
-    {
-        public string Configuration => IsDevelopment ? "Development" : "Production";
-        public bool IsDevelopment => Assembly.GetEntryAssembly()?.GetCustomAttribute<DebuggableAttribute>()?.IsJITTrackingEnabled == true;
-        public bool IsMobile => RuntimeInformation.FrameworkDescription?.ToLower().Contains("mono") == true;
+  public class DefaultFrameworkEnvironment : IFrameworkEnvironment
+  {
 
-        #region Default Constructor
+    #region Default Constructor
 
-        public DefaultFrameworkEnvironment()
-        {
+    #endregion
 
-        }
+    public string Configuration => IsDevelopment ? "Development" : "Production";
 
-        #endregion
-    }
+    public bool IsDevelopment =>
+      Assembly.GetEntryAssembly()?.GetCustomAttribute<DebuggableAttribute>()?.IsJITTrackingEnabled == true;
+
+    public bool IsMobile => RuntimeInformation.FrameworkDescription?.ToLower().Contains("mono") == true;
+  }
 }
