@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SJ.Extensions
+namespace SJ
 {
     /// <summary>
     ///   数组扩展方法

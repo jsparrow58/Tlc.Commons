@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SJ.Em;
-using SJ.Extensions;
-using SJ.Web.Extensions;
 using System;
 using System.IO;
 using System.Net;
@@ -14,7 +12,7 @@ namespace SJ.Web
     public static class WebRequest
     {
         /// <summary>
-        ///   发送Get请求返回请求原始信息
+        /// 发送Get请求返回请求原始信息
         /// </summary>
         /// <remarks>IMPORTANT: Remember to close the returned <see cref="HttpWebResponse" /> stream once done</remarks>
         /// <param name="url">请求地址</param>
@@ -45,7 +43,7 @@ namespace SJ.Web
         }
 
         /// <summary>
-        ///   发送Post请求 返回原始信息
+        /// 发送Post请求 返回原始信息
         /// </summary>
         /// <param name="url">请求地址</param>
         /// <param name="content">post请求时发送的内容</param>
@@ -110,6 +108,17 @@ namespace SJ.Web
             }
         }
 
+        /// <summary>
+        /// 带返回类型的Post请求
+        /// </summary>
+        /// <typeparam name="TResponse">返回类型</typeparam>
+        /// <param name="url">请求地址</param>
+        /// <param name="content">请求内容</param>
+        /// <param name="sendType">发送类型</param>
+        /// <param name="returnType">返回类型</param>
+        /// <param name="configureRequest">自定义请求参数</param>
+        /// <param name="bearerToken">用户签名</param>
+        /// <returns>any</returns>
         public static async Task<ResEntity<TResponse>> PostAsync<TResponse>(string url,
           object content = null,
           ContentSerializers sendType = ContentSerializers.Json,

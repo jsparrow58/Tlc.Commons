@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace SJ.Framework.Extensions
+namespace SJ.Framework
 {
     public static class FrameworkExtensions
     {

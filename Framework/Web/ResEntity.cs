@@ -1,5 +1,4 @@
-﻿using SJ.Extensions;
-using System.Net;
+﻿using System.Net;
 
 namespace SJ.Web
 {

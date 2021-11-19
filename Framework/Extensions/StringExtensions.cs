@@ -1,4 +1,4 @@
-﻿namespace SJ.Extensions
+﻿namespace SJ
 {
     public static class StringExtensions
     {

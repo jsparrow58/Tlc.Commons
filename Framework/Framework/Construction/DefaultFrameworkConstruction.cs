@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SJ.Framework.Extensions;
 using System;
 
 namespace SJ.Framework.Construction
 {
     public class DefaultFrameworkConstruction : FrameworkConstruction
     {
-
         #region Constructor
 
         public DefaultFrameworkConstruction()

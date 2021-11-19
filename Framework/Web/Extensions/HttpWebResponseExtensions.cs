@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace SJ.Web.Extensions
+namespace SJ.Web
 {
     public static class HttpWebResponseExtensions
     {

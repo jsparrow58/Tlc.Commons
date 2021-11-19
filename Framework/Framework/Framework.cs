@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SJ.Framework.Construction;
-using SJ.Logging.Extensions;
+using SJ.Logging;
 using System;
 using static SJ.Framework.FrameworkDI;
 
