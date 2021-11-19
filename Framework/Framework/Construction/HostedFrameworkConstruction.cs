@@ -44,12 +44,12 @@
     /// </code>
     /// </example>
     public class HostedFrameworkConstruction : FrameworkConstruction
-  {
-      /// <summary>
-      ///   Default constructor
-      /// </summary>
-      public HostedFrameworkConstruction() : base(false)
     {
+        /// <summary>
+        ///   Default constructor
+        /// </summary>
+        public HostedFrameworkConstruction() : base(false)
+        {
+        }
     }
-  }
 }
