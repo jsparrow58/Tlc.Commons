@@ -19,11 +19,15 @@ namespace SJ.Web
         /// <param name="configRequest">允许在发送前自定义请求</param>
         /// <param name="bearerToken">在特殊情况下，请求需要发送bearerToken,以表明请求身份</param>
         /// <returns></returns>
-        public static async Task<HttpWebResponse> GetAsync(string url, Action<HttpWebRequest> configRequest = null,
-        string bearerToken = null)
+        public static async Task<HttpWebResponse> GetAsync(string url,
+            ContentSerializers sendType = ContentSerializers.Json,
+            ContentSerializers returnType = ContentSerializers.Json,
+            Action<HttpWebRequest> configRequest = null, string bearerToken = null)
         {
             var request = System.Net.WebRequest.CreateHttp(url);
             request.Method = WebRequestMethods.Http.Get;
+            request.ContentType = sendType.ToMimeString();
+            request.Accept = returnType.ToMimeString();
 
             // 请求Token
             if (!bearerToken.IsNullOrWhiteSpace())
@@ -40,6 +44,72 @@ namespace SJ.Web
                 if (e.Response is HttpWebResponse response) return response;
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 发送Get请求返回请求原始信息
+        /// </summary>
+        /// <remarks>IMPORTANT: Remember to close the returned <see cref="HttpWebResponse" /> stream once done</remarks>
+        /// <param name="url">请求地址</param>
+        /// <param name="configRequest">允许在发送前自定义请求</param>
+        /// <param name="bearerToken">在特殊情况下，请求需要发送bearerToken,以表明请求身份</param>
+        /// <returns></returns>
+        public static async Task<WebRequestResult<TResponse>> GetAsync<TResponse>(string url,
+            ContentSerializers sendType = ContentSerializers.Json,
+            ContentSerializers returnType = ContentSerializers.Json,
+            Action<HttpWebRequest> configRequest = null, string bearerToken = null)
+        {
+            HttpWebResponse serverResponse;
+
+            try
+            {
+                serverResponse = await GetAsync(url, sendType, returnType, configRequest, bearerToken);
+            }
+            catch (Exception e)
+            {
+                return new WebRequestResult<TResponse>() { ErrorMessage = e.Message };
+            }
+
+            var result = serverResponse.CreateResEntity<TResponse>();
+
+            if (result.StatusCode != HttpStatusCode.OK) return result;
+
+            if (result.RawServerResponse.IsNullOrEmpty()) return result;
+
+            try
+            {
+                if (!serverResponse.ContentType.ToLower().Contains(returnType.ToMimeString().ToLower()))
+                {
+                    result.ErrorMessage =
+                      $"服务器返回的格式不支持，接受的格式 {returnType.ToMimeString()}, 收到的格式 {serverResponse.ContentType}";
+                    return result;
+                }
+
+                if (returnType == ContentSerializers.Json)
+                {
+                    result.ServerResponse = JsonConvert.DeserializeObject<TResponse>(result.RawServerResponse);
+                }
+                else if (returnType == ContentSerializers.Xml)
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(TResponse));
+
+                    using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(result.RawServerResponse)))
+                    {
+                        result.ServerResponse = (TResponse)xmlSerializer.Deserialize(memoryStream);
+                    }
+                }
+                else
+                {
+                    result.ErrorMessage = "未知的返回类型，不能序列化服务器返回内容";
+                }
+            }
+            catch (Exception)
+            {
+                result.ErrorMessage = "不能将服务器端返回的对象反序列化。";
+                return result;
+            }
+
+            return result;
         }
 
         /// <summary>
