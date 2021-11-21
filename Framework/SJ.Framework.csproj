@@ -10,7 +10,7 @@
         <RepostoryUrl>https://github.com/jsparrow58/Tlc.Commons</RepostoryUrl>
         <PackageReleaseNotes>A cross-platform base framework tools for .net</PackageReleaseNotes>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0.4</Version>
+        <Version>1.0.0.5</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

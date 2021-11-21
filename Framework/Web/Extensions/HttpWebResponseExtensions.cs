@@ -5,9 +5,9 @@ namespace SJ.Web
 {
     public static class HttpWebResponseExtensions
     {
-        public static ResEntity<TResponse> CreateResEntity<TResponse>(this HttpWebResponse serverResponse)
+        public static WebRequestResult<TResponse> CreateResEntity<TResponse>(this HttpWebResponse serverResponse)
         {
-            var result = new ResEntity<TResponse>
+            var result = new WebRequestResult<TResponse>
             {
                 ContentType = serverResponse.ContentType,
                 Headers = serverResponse.Headers,

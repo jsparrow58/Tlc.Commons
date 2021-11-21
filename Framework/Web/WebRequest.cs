@@ -119,7 +119,7 @@ namespace SJ.Web
         /// <param name="configureRequest">自定义请求参数</param>
         /// <param name="bearerToken">用户签名</param>
         /// <returns>any</returns>
-        public static async Task<ResEntity<TResponse>> PostAsync<TResponse>(string url,
+        public static async Task<WebRequestResult<TResponse>> PostAsync<TResponse>(string url,
           object content = null,
           ContentSerializers sendType = ContentSerializers.Json,
           ContentSerializers returnType = ContentSerializers.Xml,
@@ -134,7 +134,7 @@ namespace SJ.Web
             }
             catch (Exception e)
             {
-                return new ResEntity<TResponse> { ErrorMessage = e.Message };
+                return new WebRequestResult<TResponse> { ErrorMessage = e.Message };
             }
 
             var result = serverResponse.CreateResEntity<TResponse>();

@@ -2,9 +2,9 @@
 
 namespace SJ.Web
 {
-    public class ResEntity
+    public class WebRequestResult
     {
-        public bool Successful => ErrorMessage.IsNullOrWhiteSpace();
+        public bool Successful => ErrorMessage.IsNullOrWhiteSpace() == false;
 
         public string ErrorMessage { get; set; }
 
@@ -19,17 +19,17 @@ namespace SJ.Web
         public CookieCollection Cookies { get; set; }
 
         /// <summary>
-        ///   服务器返回的原始内容
+        /// 服务器返回的原始内容
         /// </summary>
         public string RawServerResponse { get; set; }
 
         /// <summary>
-        ///   服务器返回的对象
+        /// 服务器返回的对象
         /// </summary>
         public object ServerResponse { get; set; }
     }
 
-    public class ResEntity<T> : ResEntity
+    public class WebRequestResult<T> : WebRequestResult
     {
         public new T ServerResponse
         {
